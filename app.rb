@@ -6,12 +6,15 @@ RVMRC
 create_file ".rvmrc", rvmrc
 
 empty_directory "lib/generators"
-git :clone => "--depth 0 http://github.com/leshill/rails3-app.git lib/generators"
+git :clone => "--depth 0 http://github.com/TMaYaD/rails3-app.git lib/generators"
 remove_dir "lib/generators/.git"
 
-gem "haml", ">= 3.0.0.rc.4"
-gem "rspec-rails", ">= 2.0.0.beta.8", :group => :test
-gem "factory_girl", ">= 1.2.4", :group => :test
+gem "haml"
+gem "rack-environmental"
+group :test do
+  gem "rspec-rails"
+  gem "factory_girl"
+end
 
 generators = <<-GENERATORS
 
