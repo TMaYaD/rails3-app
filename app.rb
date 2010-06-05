@@ -31,11 +31,11 @@ gem "factory_girl", :group => :test
 generators = <<-GENERATORS
 
     config.generators do |g|
-      g.template_engine :haml$
-      g.test_framework :rspec, :fixture => true, :helper_specs => false, :routing_specs => true$
-      g.fixture_replacement :factory_girl, :dir => "spec/factories"$
-      g.integration_tool :rspec$
-      g.helper :rspec$
+      g.template_engine :haml
+      g.test_framework :rspec, :fixture => true, :helper_specs => false, :routing_specs => true
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.integration_tool :rspec
+      g.helper :rspec
     end
 GENERATORS
 
@@ -78,7 +78,7 @@ run "ln -s doc/README_FOR_APP README"
 
 # Prepare the database
 run "cp config/database.yml config/database.example.yml"
-rake "db:migrate"
+#rake "db:migrate"
 
 # We love git
 # prepare the files and stage the changes
