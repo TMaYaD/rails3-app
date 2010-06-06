@@ -25,14 +25,14 @@ prepend_file 'config.ru', middleware
 # Set up the gems and make them default generators
 gem "haml"
 gem "rails3-generators", :group => :development
-gem "rspec-rails", ">= 2.0.0.beta.8", :group => :test
-gem "factory_girl", :group => :test
+gem "rspec-rails", :git => "git://github.com/rspec/rspec-rails.git", :group => :test
+gem "factory_girl", :git => "git://github.com/thoughtbot/factory_girl.git", :group => :test
 
 generators = <<-GENERATORS
 
     config.generators do |g|
       g.template_engine :haml
-      g.test_framework :rspec, :fixture => true, :helper_specs => false, :routing_specs => true
+      g.test_framework :rspec, :fixture => true, :helper_specs => false
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
       g.integration_tool :rspec
       g.helper :rspec
