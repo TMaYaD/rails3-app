@@ -21,6 +21,7 @@ use Rack::Environmental,
 CONFIGRU
 
 prepend_file 'config.ru', middleware
+
 # We love RSpec, factory_girl and haml
 # Set up the gems and make them default generators
 gem "transitions"
@@ -56,21 +57,25 @@ get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "pub
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/rails.js"
 
 jquery = <<-JQUERY
-ActionView::Helpers::AssetTagHelper.register_javascript_expansion \
-  :jquery => %w(jquery jquery-ui rails)
+module ActionView::Helpers::AssetTagHelper
+  remove_const :JAVASCRIPT_DEFAULT_SOURCES
+  JAVASCRIPT_DEFAULT_SOURCES = %w(jquery.js jquery-ui.js rails.js)
+
+  reset_javascript_include_default
+end
 JQUERY
 
 initializer "jquery.rb", jquery
 
 # Prepare a layout for the app
-# TODO: Customise the layout and index page
+# TODO: Customise the layout to use nifty:layout
 layout = <<-LAYOUT
 !!!
 %html
   %head
     %title #{app_name.humanize}
     = stylesheet_link_tag :all
-    = javascript_include_tag :jquery
+    = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
     = yield
@@ -78,6 +83,12 @@ LAYOUT
 
 remove_file "app/views/layouts/application.html.erb"
 create_file "app/views/layouts/application.html.haml", layout
+
+# We don't want the default rails index file or its resources
+# TODO: create alternatives
+remove_file "public/index.html"
+remove_file "public/images/rails.png"
+remove_file "public/favicon.ico"
 
 # Prepare README, All the big boys do
 remove_file "README"
