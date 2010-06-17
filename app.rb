@@ -23,10 +23,17 @@ CONFIGRU
 prepend_file 'config.ru', middleware
 # We love RSpec, factory_girl and haml
 # Set up the gems and make them default generators
+gem "transitions"
 gem "haml"
+gem "compass"
+
 gem "rails3-generators", :group => :development
-gem "rspec-rails", :git => "git://github.com/rspec/rspec-rails.git", :group => :test
-gem "factory_girl", :git => "git://github.com/thoughtbot/factory_girl.git", :group => :test
+
+gem "rspec-rails", :group => :test
+gem "factory_girl_rails", :group => :test
+gem "capybara", :group => :test
+gem "cucumber-rails", :group => :test
+gem "spork", :group => :test
 
 generators = <<-GENERATORS
 
@@ -36,6 +43,7 @@ generators = <<-GENERATORS
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
       g.integration_tool :rspec
       g.helper :rspec
+      g.stylesheets false
     end
 GENERATORS
 
@@ -105,6 +113,7 @@ cd #{app_name}
 gem install bundler
 bundle install
 rails generate rspec:install
+rails generate cucumber:skeleton --rspec --capybara --spork
 
 DOCS
 
