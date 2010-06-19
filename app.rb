@@ -25,12 +25,12 @@ prepend_file 'config.ru', middleware
 # We love RSpec, factory_girl and haml
 # Set up the gems and make them default generators
 gem "transitions"
-gem "haml"
+gem "haml", ">= 3.0.12"
 gem "compass"
 
 gem "rails3-generators", :group => :development
 
-gem "rspec-rails", :group => :test
+gem "rspec-rails", ">= 2.0.0.beta.11", :group => :test
 gem "factory_girl_rails", :group => :test
 gem "capybara", :group => :test
 gem "cucumber-rails", :group => :test
